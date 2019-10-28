@@ -13,28 +13,37 @@ namespace GK_Projekt2
         public int N { get; set; } //width
         public int M { get; set; } //height
 
+        private const int defaultN = 3;
+        private const int defaultM = 3;
         private Point[,] Points;
         private Pen pen = new Pen(Brushes.Black);
+        public List<ActiveEdge> ActiveEdges { get; set; }
 
-        public Triangles(int n = 10, int m = 15)
+        public Triangles(int n = defaultN, int m = defaultM)
         {
             this.N = n;
             this.M = m;
         }
 
+        private void Swap(ref Point a, ref Point b)
+        {
+            Point temp = a;
+            a = b;
+            b = temp;
+        }
 
         public void InitTriangles(int width, int height)
         {
             Points = new Point[N + 1, M + 1];
-            double TriaWidth = (double)(width - 5)/ (double)M;
-            double TriaHeight = (double)(height - 5)/ (double)N;
+            double TriaWidth = (double)(width - 10)/ (double)M;
+            double TriaHeight = (double)(height - 10)/ (double)N;
 
             for (int i = 0; i < N + 1; i++)
             { 
                 for (int j = 0; j < M + 1; j++)
                 { 
-                    Points[i, j].X = (int)(TriaWidth * j);
-                    Points[i, j].Y = (int)(TriaHeight * i);
+                    Points[i, j].X = (int)(TriaWidth * j) + 5;
+                    Points[i, j].Y = (int)(TriaHeight * i) + 5;
                 }
             }
             
@@ -49,18 +58,18 @@ namespace GK_Projekt2
             using (Graphics g = Graphics.FromImage(image))
             {
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                for (int i = 0; i < N + 1; i++)
+                for (int i = 0; i < Points.GetLength(0); i++)
                 {
-                    for (int j = 0; j < M + 1; j++)
+                    for (int j = 0; j < Points.GetLength(1); j++)
                     {
-                        if (j < M)
+                        if (j < Points.GetLength(1) - 1)
                         {
                             g.DrawLine(pen, Points[i, j], Points[i, j + 1]); // w prawo
                             if (i > 0)
                                 g.DrawLine(pen, Points[i, j], Points[i - 1, j + 1]); // do gory prawo
 
                         }
-                        if (i < N)
+                        if (i < Points.GetLength(0) - 1)
                             g.DrawLine(pen, Points[i, j], Points[i + 1, j]); // w dol
                     }
                 }
@@ -81,7 +90,7 @@ namespace GK_Projekt2
             double distance = Points[0, 0].DistanceToPoint(mousePoint);
             for (int i = 0; i < Points.GetLength(0); i++)
             {
-                for (int j = 1; j < Points.GetLength(1); j++)
+                for (int j = 0; j < Points.GetLength(1); j++)
                 {
                     double curDistance = Points[i, j].DistanceToPoint(mousePoint);
                     if (curDistance < distance)
@@ -105,5 +114,86 @@ namespace GK_Projekt2
         }
 
 
+        public void InitActiveEdges()
+        {
+            List<ActiveEdge> edges = new List<ActiveEdge>();
+            Point higherPoint;
+            Point lowerPoint;
+            int dx, dy;
+            double m;
+            for (int i = 0; i < Points.GetLength(0); i++)
+            {
+                for (int j = 0; j < Points.GetLength(1); j++)
+                {
+                    if (j < Points.GetLength(1) - 1)
+                    {
+                        //w prawo
+                        higherPoint = Points[i, j];
+                        lowerPoint = Points[i, j + 1];
+                        if(higherPoint.Y < lowerPoint.Y)
+                        {
+                            Swap(ref higherPoint, ref lowerPoint);
+                        }
+                        dx = higherPoint.X - lowerPoint.X;
+                        dy = higherPoint.Y - lowerPoint.Y;
+                        if (dy != 0)
+                        {
+                            m = dx / dy;
+                            edges.Add(new ActiveEdge(higherPoint.Y, lowerPoint.Y, lowerPoint.X, m));
+                            if (i > 0 && i < Points.GetLength(0) - 1)
+                                edges.Add(new ActiveEdge(higherPoint.Y, lowerPoint.Y, lowerPoint.X, m));
+                        }
+                        if(i > 0)
+                        {
+                            //do gory prawo
+                            higherPoint = Points[i, j];
+                            lowerPoint = Points[i - 1, j + 1];
+                            if (higherPoint.Y < lowerPoint.Y)
+                            {
+                                Swap(ref higherPoint, ref lowerPoint);
+
+                            }
+                            dx = higherPoint.X - lowerPoint.X;
+                            dy = higherPoint.Y - lowerPoint.Y;
+                            if (dy != 0)
+                            {
+                                m = dx / dy;
+                                edges.Add(new ActiveEdge(higherPoint.Y, lowerPoint.Y, lowerPoint.X, m));
+                                edges.Add(new ActiveEdge(higherPoint.Y, lowerPoint.Y, lowerPoint.X, m));
+                            }
+                        }
+
+                    }
+                    if (i < Points.GetLength(0) - 1)
+                    {
+                        //w dol
+                        higherPoint = Points[i, j];
+                        lowerPoint = Points[i + 1, j];
+                        if (higherPoint.Y < lowerPoint.Y)
+                        {
+                            Swap(ref higherPoint, ref lowerPoint);
+
+                        }
+                        dx = higherPoint.X - lowerPoint.X;
+                        dy = higherPoint.Y - lowerPoint.Y;
+                        if (dy != 0)
+                        {
+                            m = dx / dy;
+                            edges.Add(new ActiveEdge(higherPoint.Y, lowerPoint.Y, lowerPoint.X, m));
+                            if (j > 0 && j < Points.GetLength(1) - 1)
+                                edges.Add(new ActiveEdge(higherPoint.Y, lowerPoint.Y, lowerPoint.X, m));
+                        }
+                    }
+                }
+            }
+            ActiveEdges = edges;
+        }
+
+        public void FillTriangles(Color color)
+        {
+            
+        }
+
+        
     }
 }

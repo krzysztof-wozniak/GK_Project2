@@ -15,6 +15,7 @@ namespace GK_Projekt2
         private Triangles triangles = new Triangles();
         private Bitmap image;
         private Image oldImage;
+        
 
         private int minDistanceToPoint = 10;
         private int nearestI = -1;
@@ -25,7 +26,6 @@ namespace GK_Projekt2
         public mainForm()
         {
             InitializeComponent();
-            //triangles.InitTriangles(mainPictureBox.Width - 50, mainPictureBox.Height - 50);
             nTextBox.Text = triangles.N.ToString();
             mTextBox.Text = triangles.M.ToString();
             this.ActiveControl = configureGroupBox;
@@ -34,14 +34,6 @@ namespace GK_Projekt2
         protected override void OnShown(EventArgs e)
         {
             base.OnShown(e);
-            //image = new Bitmap(mainPictureBox.Image.Width, mainPictureBox.Height);
-            //mainPictureBox.Image = image;
-            //triangles.InitTriangles(image.Width, image.Height);
-            //triangles.DrawTriangles(image);
-            //Image oldImage = mainPictureBox.Image;
-            //mainPictureBox.Image = image;
-            //oldImage.Dispose();
-
             triangles.InitTriangles(mainPictureBox.Width, mainPictureBox.Height);
             UpdatePictureBox();
         }
@@ -61,24 +53,6 @@ namespace GK_Projekt2
 
         
 
-        private void resetButton_Click(object sender, EventArgs e)
-        {
-            if (ValidateN() && ValidateM())
-            {
-                if(nTextBox.Text != "")
-                {
-                    triangles.N = Int32.Parse(nTextBox.Text);
-                }
-                if(mTextBox.Text != "")
-                {
-                    triangles.M = Int32.Parse(mTextBox.Text);
-                }
-                Image image = new Bitmap(mainPictureBox.Width, mainPictureBox.Height);
-                mainPictureBox.Image = image;
-                triangles.InitTriangles(image.Width, image.Height);
-                triangles.DrawTriangles(image);
-            }
-        }
         
         /*
          ***********************************
@@ -126,6 +100,13 @@ namespace GK_Projekt2
             ValidateM();
         }
 
+
+        /*
+         ***********************************
+         *-------------Events---------------
+         ***********************************
+         */
+
         private void mainPictureBox_MouseMove(object sender, MouseEventArgs e)
         {
             Point mousePoint = new Point(e.X, e.Y);
@@ -160,33 +141,84 @@ namespace GK_Projekt2
             movingPoint = false;
         }
 
+        private void resetButton_Click(object sender, EventArgs e)
+        {
+            if (ValidateN() && ValidateM())
+            {
+                if (nTextBox.Text != "")
+                {
+                    triangles.N = Int32.Parse(nTextBox.Text);
+                }
+                if (mTextBox.Text != "")
+                {
+                    triangles.M = Int32.Parse(mTextBox.Text);
+                }
+                //Image image = new Bitmap(mainPictureBox.Width, mainPictureBox.Height);
+                //mainPictureBox.Image = image;
+                triangles.InitTriangles(mainPictureBox.Width, mainPictureBox.Height);
+                UpdatePictureBox();
+                //triangles.DrawTriangles(image);
+            }
+        }
 
-
-
+        
         private void UpdatePictureBox()
         {
             Image oldImage = mainPictureBox.Image;
-            Image image = new Bitmap(mainPictureBox.Width, mainPictureBox.Height);
+            Bitmap image = new Bitmap(mainPictureBox.Width, mainPictureBox.Height);
+            
+            FillTriangles(image);
             triangles.DrawTriangles(image);
             mainPictureBox.Image = image;
             if(oldImage != null)
                 oldImage.Dispose();
         }
-
-        private void mainForm_Shown(object sender, EventArgs e)
+        
+        //ET tablica 
+        private void FillTriangles(Bitmap image)
         {
-            /*Image image = new Bitmap(mainPictureBox.Width, mainPictureBox.Height);
-            mainPictureBox.Image = image;
-            triangles.InitTriangles(image.Width, image.Height);
-            triangles.DrawTriangles(image);*/
-        }
+            triangles.InitActiveEdges();
+            List<ActiveEdge> activeEdges = triangles.ActiveEdges;
+            List<ActiveEdge>[] ET = new List<ActiveEdge>[image.Height];
+            foreach(ActiveEdge e in activeEdges)
+            {
+                if (ET[e.yMin] == null)
+                    ET[e.yMin] = new List<ActiveEdge>();
+                ET[e.yMin].Add(e);
+            }//tablica ET
+            int y = -1;
+            for(int i = 0; i < ET.Length; i++)
+            {
+                if (ET[i] != null)
+                {
+                    y = i;
+                    break;
+                }
+            }//najmniejszy index y
+            var AET = new List<ActiveEdge>();
+            for(int i = y; i < ET.Length; i++)
+            {
+                if (ET[i] != null)
+                    AET.AddRange(ET[i]);
+                AET.Sort((e1, e2) => e1.x.CompareTo(e2.x));//posortowane
+                for(int j = 0; j + 1< AET.Count; j += 2)
+                {
+                    int x1 = (int)Math.Round(AET[j].x);
+                    int x2 = (int)Math.Round(AET[j + 1].x);
+                    while(x1 < x2)
+                    {
+                        double ratio = (double)x1 / (double)image.Width;
+                        image.SetPixel(x1++, i, Color.FromArgb((int)(255 * (1 - ratio)), (int)(255 * ratio), (int)(255 * ratio)));
+                    }
+                }
+                AET.RemoveAll(x => x.yMax == i);
+                foreach(var e in AET)
+                {
+                    e.IncreaseX();
+                }
+            }
 
-        private void mainPictureBox_LoadCompleted(object sender, AsyncCompletedEventArgs e)
-        {
-            Image image = new Bitmap(mainPictureBox.Width, mainPictureBox.Height);
-            //mainPictureBox.Image = image;
-            triangles.InitTriangles(image.Width, image.Height);
-            triangles.DrawTriangles(image);
         }
+        
     }
 }

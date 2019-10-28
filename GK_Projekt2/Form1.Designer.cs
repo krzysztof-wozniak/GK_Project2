@@ -158,7 +158,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.mainTableLayoutPanel);
             this.Name = "mainForm";
-            this.Text = "Form1";
+            this.Text = "Krzysztof Wozniak - GK Projekt 2";
             ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).EndInit();
             this.mainTableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
