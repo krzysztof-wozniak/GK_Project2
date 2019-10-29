@@ -35,15 +35,17 @@ namespace GK_Projekt2
         public void InitTriangles(int width, int height)
         {
             Points = new Point[N + 1, M + 1];
-            double TriaWidth = (double)(width - 10)/ (double)M;
-            double TriaHeight = (double)(height - 10)/ (double)N;
+            int widthEmpty = width * 8 / 100;
+            int heightEmpty = height * 8 / 100;
+            double TriaWidth = (double)(width - widthEmpty)/ (double)M;
+            double TriaHeight = (double)(height - heightEmpty)/ (double)N;
 
             for (int i = 0; i < N + 1; i++)
             { 
                 for (int j = 0; j < M + 1; j++)
                 { 
-                    Points[i, j].X = (int)(TriaWidth * j) + 5;
-                    Points[i, j].Y = (int)(TriaHeight * i) + 5;
+                    Points[i, j].X = (int)(TriaWidth * j) + widthEmpty / 2;
+                    Points[i, j].Y = (int)(TriaHeight * i) + heightEmpty / 2;
                 }
             }
             
@@ -119,7 +121,7 @@ namespace GK_Projekt2
             List<ActiveEdge> edges = new List<ActiveEdge>();
             Point higherPoint;
             Point lowerPoint;
-            int dx, dy;
+            double dx, dy;
             double m;
             for (int i = 0; i < Points.GetLength(0); i++)
             {

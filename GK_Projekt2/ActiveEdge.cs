@@ -12,6 +12,7 @@ namespace GK_Projekt2
         public int yMin { get; set; }
         public double x { get; set; }
         public double m { get; set; }
+
         public ActiveEdge(int yMax, int yMin, double x, double m)
         {
             this.yMax = yMax;

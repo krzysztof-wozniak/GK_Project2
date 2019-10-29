@@ -166,9 +166,8 @@ namespace GK_Projekt2
         {
             Image oldImage = mainPictureBox.Image;
             Bitmap image = new Bitmap(mainPictureBox.Width, mainPictureBox.Height);
-            
             FillTriangles(image);
-            triangles.DrawTriangles(image);
+            //triangles.DrawTriangles(image);
             mainPictureBox.Image = image;
             if(oldImage != null)
                 oldImage.Dispose();
@@ -182,6 +181,10 @@ namespace GK_Projekt2
             List<ActiveEdge>[] ET = new List<ActiveEdge>[image.Height];
             foreach(ActiveEdge e in activeEdges)
             {
+                if (e.yMax >= image.Height)
+                    e.yMax = image.Height - 1;
+                if (e.yMin < 0)
+                    e.yMin = 0;
                 if (ET[e.yMin] == null)
                     ET[e.yMin] = new List<ActiveEdge>();
                 ET[e.yMin].Add(e);
@@ -195,26 +198,46 @@ namespace GK_Projekt2
                     break;
                 }
             }//najmniejszy index y
-            var AET = new List<ActiveEdge>();
-            for(int i = y; i < ET.Length; i++)
+            using (Graphics g = Graphics.FromImage(image))
             {
-                if (ET[i] != null)
-                    AET.AddRange(ET[i]);
-                AET.Sort((e1, e2) => e1.x.CompareTo(e2.x));//posortowane
-                for(int j = 0; j + 1< AET.Count; j += 2)
+                var AET = new List<ActiveEdge>();
+                for (int i = y; i < ET.Length; i++)
                 {
-                    int x1 = (int)Math.Round(AET[j].x);
-                    int x2 = (int)Math.Round(AET[j + 1].x);
-                    while(x1 < x2)
+                    if (ET[i] != null)
+                        AET.AddRange(ET[i]);
+                    AET.Sort((e1, e2) => e1.x.CompareTo(e2.x));//posortowane
+                    int beczka = 0;
+                    for (int j = 0; j + 1 < AET.Count; j += 2)
                     {
-                        double ratio = (double)x1 / (double)image.Width;
-                        image.SetPixel(x1++, i, Color.FromArgb((int)(255 * (1 - ratio)), (int)(255 * ratio), (int)(255 * ratio)));
+                        int x1 = (int)Math.Round(AET[j].x);
+                        int x2 = (int)Math.Round(AET[j + 1].x);
+                        while (x1 <= x2)
+                        {
+                            //double ratio = (double)x1 / (double)image.Width;
+                            //Pen pen = new Pen(Color.FromArgb((int)(255 * (1 - ratio)), (int)(255 * ratio), (int)(255 * ratio)));
+                            //Brush greenBrush = new SolidBrush(Color.FromArgb(0, 200, 0));
+                            //Brush pinkBrush = new SolidBrush(Color.FromArgb(255, 0, 102));
+                            //g.FillRectangle(, x1++, i, 1, 1);
+                            if (beczka % 2 == 0)
+                            {
+                                //g.FillRectangle(greenBrush, x1++, i, 1, 1);
+                                image.SetPixel(x1++, i, Color.FromArgb(0, 200, 0));
+                            }
+                            else
+                            {
+                                //g.FillRectangle(pinkBrush, x1++, i, 1, 1);
+                                image.SetPixel(x1++, i, Color.FromArgb(255, 0, 102));
+                            }
+                            
+
+                        }
+                        beczka++;
                     }
-                }
-                AET.RemoveAll(x => x.yMax == i);
-                foreach(var e in AET)
-                {
-                    e.IncreaseX();
+                    AET.RemoveAll(x => x.yMax - 1 == i);
+                    foreach (var e in AET)
+                    {
+                        e.IncreaseX();
+                    }
                 }
             }
 
