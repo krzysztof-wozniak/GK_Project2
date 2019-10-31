@@ -8,16 +8,34 @@ using System.Drawing;
 
 namespace GK_Projekt2
 {
-    class Triangles
+    public class Triangles
     {
         public int N { get; set; } //width
         public int M { get; set; } //height
 
         private const int defaultN = 3;
         private const int defaultM = 3;
-        private Point[,] Points;
+        public Point[,] Points { get; private set; }
         private Pen pen = new Pen(Brushes.Black);
         public List<ActiveEdge> ActiveEdges { get; set; }
+
+        public Triangle[] GetTriangles
+        {
+            get
+            {
+                List<Triangle> triangles = new List<Triangle>();
+                for (int i = 0; i < Points.GetLength(0) - 1; i++)
+                {
+                    for (int j = 0; j < Points.GetLength(1) - 1; j++)
+                    {
+                        triangles.Add(new Triangle(Points[i, j], Points[i, j + 1], Points[i + 1, j]));
+                        triangles.Add(new Triangle(Points[i, j + 1], Points[i + 1, j], Points[i + 1, j + 1]));
+                    }
+                }
+
+                return triangles.ToArray();
+            }
+        }
 
         public Triangles(int n = defaultN, int m = defaultM)
         {
@@ -195,6 +213,7 @@ namespace GK_Projekt2
         {
             
         }
+
 
         
     }

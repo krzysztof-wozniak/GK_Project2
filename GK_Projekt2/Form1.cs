@@ -7,28 +7,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media.Media3D;
 
 namespace GK_Projekt2
 {
     public partial class mainForm : Form
     {
         private Triangles triangles = new Triangles();
-        private Bitmap image;
-        private Image oldImage;
-        
+        private DirectBitmap image;
+        private DirectBitmap oldImage;
+        public Vector3D a;
+        private Pen pen = new Pen(Color.Black);
+        private DirectBitmap vectorNTexture;
+        private DirectBitmap objectColorTexture;
+        private bool drawEdges = true;
 
         private int minDistanceToPoint = 10;
         private int nearestI = -1;
         private int nearestJ = -1;
 
+        private bool constLightSource = true;
+        private bool constVectorN = true;
         private bool movingPoint = false;
+        private bool constObjectColor = true;
 
         public mainForm()
         {
             InitializeComponent();
             nTextBox.Text = triangles.N.ToString();
             mTextBox.Text = triangles.M.ToString();
-            this.ActiveControl = configureGroupBox;
+            this.ActiveControl = sizeGroupBox;
         }
 
         protected override void OnShown(EventArgs e)
@@ -36,6 +44,7 @@ namespace GK_Projekt2
             base.OnShown(e);
             triangles.InitTriangles(mainPictureBox.Width, mainPictureBox.Height);
             UpdatePictureBox();
+            //var i = vectorNTexturePicutreBox.Image;
         }
 
         private void mainPictureBox_Layout(object sender, LayoutEventArgs e)
@@ -164,84 +173,110 @@ namespace GK_Projekt2
         
         private void UpdatePictureBox()
         {
-            Image oldImage = mainPictureBox.Image;
-            Bitmap image = new Bitmap(mainPictureBox.Width, mainPictureBox.Height);
-            FillTriangles(image);
-            //triangles.DrawTriangles(image);
-            mainPictureBox.Image = image;
+            oldImage = this.image;
+            this.image = new DirectBitmap(mainPictureBox.Width, mainPictureBox.Height);
+            Drawer.FillPolygons(image, triangles);
+            if(drawEdges)
+                Drawer.DrawPolygon(image, triangles.Points, pen);
+            mainPictureBox.Image = image.Bitmap;
             if(oldImage != null)
                 oldImage.Dispose();
         }
-        
-        //ET tablica 
-        private void FillTriangles(Bitmap image)
+
+        private void vectorNRadioButtonConst_CheckedChanged(object sender, EventArgs e)
         {
-            triangles.InitActiveEdges();
-            List<ActiveEdge> activeEdges = triangles.ActiveEdges;
-            List<ActiveEdge>[] ET = new List<ActiveEdge>[image.Height];
-            foreach(ActiveEdge e in activeEdges)
+            if(vectorNRadioButtonConst.Checked)
             {
-                if (e.yMax >= image.Height)
-                    e.yMax = image.Height - 1;
-                if (e.yMin < 0)
-                    e.yMin = 0;
-                if (ET[e.yMin] == null)
-                    ET[e.yMin] = new List<ActiveEdge>();
-                ET[e.yMin].Add(e);
-            }//tablica ET
-            int y = -1;
-            for(int i = 0; i < ET.Length; i++)
-            {
-                if (ET[i] != null)
-                {
-                    y = i;
-                    break;
-                }
-            }//najmniejszy index y
-            using (Graphics g = Graphics.FromImage(image))
-            {
-                var AET = new List<ActiveEdge>();
-                for (int i = y; i < ET.Length; i++)
-                {
-                    if (ET[i] != null)
-                        AET.AddRange(ET[i]);
-                    AET.Sort((e1, e2) => e1.x.CompareTo(e2.x));//posortowane
-                    int beczka = 0;
-                    for (int j = 0; j + 1 < AET.Count; j += 2)
-                    {
-                        int x1 = (int)Math.Round(AET[j].x);
-                        int x2 = (int)Math.Round(AET[j + 1].x);
-                        while (x1 <= x2)
-                        {
-                            //double ratio = (double)x1 / (double)image.Width;
-                            //Pen pen = new Pen(Color.FromArgb((int)(255 * (1 - ratio)), (int)(255 * ratio), (int)(255 * ratio)));
-                            //Brush greenBrush = new SolidBrush(Color.FromArgb(0, 200, 0));
-                            //Brush pinkBrush = new SolidBrush(Color.FromArgb(255, 0, 102));
-                            //g.FillRectangle(, x1++, i, 1, 1);
-                            if (beczka % 2 == 0)
-                            {
-                                //g.FillRectangle(greenBrush, x1++, i, 1, 1);
-                                image.SetPixel(x1++, i, Color.FromArgb(0, 200, 0));
-                            }
-                            else
-                            {
-                                //g.FillRectangle(pinkBrush, x1++, i, 1, 1);
-                                image.SetPixel(x1++, i, Color.FromArgb(255, 0, 102));
-                            }
-                            
-
-                        }
-                        beczka++;
-                    }
-                    AET.RemoveAll(x => x.yMax - 1 == i);
-                    foreach (var e in AET)
-                    {
-                        e.IncreaseX();
-                    }
-                }
+                constVectorN = true;
             }
+            else
+            {
+                constVectorN = false;
+            }
+        }
 
+        private void objectColorButton_Click(object sender, EventArgs e)
+        {
+            using (ColorDialog colorDialog = new ColorDialog())
+                if (colorDialog.ShowDialog() == DialogResult.OK)
+                {
+                    objectColorButton.BackColor = colorDialog.Color;
+                }
         }
         
+
+        private void vectorNTexturePicutreBox_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "Image Files(*.BMP; *.JPG; *.GIF)| *.BMP; *.JPG; *.GIF | All files(*.*) | *.*";
+                openFileDialog.RestoreDirectory = true;
+                Image image = null;
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    if (vectorNTexture != null)
+                        vectorNTexture.Dispose();
+                    Image oldImage = vectorNTexturePicutreBox.Image;
+                    image = Image.FromFile(openFileDialog.FileName);
+                    Bitmap bitmap = new Bitmap(image, mainPictureBox.Width, mainPictureBox.Height);
+                    vectorNTexture = new DirectBitmap(image.Width, image.Height);
+                    vectorNTexture.SetBitmap(bitmap);
+                    bitmap.Dispose();
+                    //mainPictureBox.Image = vectorNTexture.Bitmap;
+                    vectorNTexturePicutreBox.Image = image;
+                    if (oldImage != null)
+                        oldImage.Dispose();
+                }
+            }
+        }
+
+        private void objectColorTexturePictureBox_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "Image Files(*.BMP; *.JPG; *.GIF)| *.BMP; *.JPG; *.GIF | All files(*.*) | *.*";
+                openFileDialog.RestoreDirectory = true;
+                Image image = null;
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    if (objectColorTexture != null)
+                        objectColorTexture.Dispose();
+                    Image oldImage = vectorNTexturePicutreBox.Image;
+                    image = Image.FromFile(openFileDialog.FileName);
+                    Bitmap bitmap = new Bitmap(image, mainPictureBox.Width, mainPictureBox.Height);
+                    objectColorTexture = new DirectBitmap(image.Width, image.Height);
+                    objectColorTexture.SetBitmap(bitmap);
+                    bitmap.Dispose();
+                    mainPictureBox.Image = objectColorTexture.Bitmap;
+                    objectColorTexturePictureBox.Image = image;
+                    if (oldImage != null)
+                        oldImage.Dispose();
+                }
+            }
+        }
+
+        private void lightSourceConstRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (lightSourceConstRadioButton.Checked)
+            {
+                constLightSource = true;
+            }
+            else
+            {
+                constLightSource = false;
+            }
+        }
+
+        private void objectColorSolidRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (objectColorSolidRadioButton.Checked)
+            {
+                constObjectColor = true;
+            }
+            else
+            {
+                constObjectColor = false;
+            }
+        }
     }
 }

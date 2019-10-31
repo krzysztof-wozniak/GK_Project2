@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GK_Projekt2
 {
-    class ActiveEdge
+    public class ActiveEdge
     {
         public int yMax { get; set; }
         public int yMin { get; set; }
