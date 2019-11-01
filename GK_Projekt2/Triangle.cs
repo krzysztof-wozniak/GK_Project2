@@ -14,6 +14,10 @@ namespace GK_Projekt2
         Point B { get; set; }
         Point C { get; set; }
 
+        public double Ks { get; private set; }
+        public double Kd { get; private set; }
+        public double m { get; private set; }
+
         public Triangle(Point a, Point b, Point c)
         {
             List<Point> points = new List<Point>() { a, b, c };
@@ -21,6 +25,10 @@ namespace GK_Projekt2
             A = points[0];
             B = points[1];
             C = points[2];
+            Random r = new Random();
+            Ks = r.NextDouble();
+            Kd = r.NextDouble();
+            m = r.Next(1, 101);
         }
 
         public List<ActiveEdge> ActiveEdges

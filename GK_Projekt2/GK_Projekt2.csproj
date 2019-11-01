@@ -88,7 +88,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\brick_normalmap.png" />
+    <None Include="Resources\normalbrickwall.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\newkoala.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

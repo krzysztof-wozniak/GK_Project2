@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.mainPictureBox = new System.Windows.Forms.PictureBox();
             this.mainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.mainPictureBox = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.sizeGroupBox = new System.Windows.Forms.GroupBox();
             this.resetButton = new System.Windows.Forms.Button();
@@ -39,44 +39,53 @@
             this.mLabel = new System.Windows.Forms.Label();
             this.nLabel = new System.Windows.Forms.Label();
             this.vectorNGroupBox = new System.Windows.Forms.GroupBox();
-            this.vectorNTexturePicutreBox = new System.Windows.Forms.PictureBox();
+            this.vectorNTexturePictureBox = new System.Windows.Forms.PictureBox();
             this.vectorNRadioButtonCustom = new System.Windows.Forms.RadioButton();
             this.vectorNRadioButtonConst = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lightSourceColorPictureBox = new System.Windows.Forms.PictureBox();
             this.lightSourceMovingRadioButton = new System.Windows.Forms.RadioButton();
             this.lightSourceConstRadioButton = new System.Windows.Forms.RadioButton();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.objectColorGroupBox = new System.Windows.Forms.GroupBox();
-            this.objectColorSolidRadioButton = new System.Windows.Forms.RadioButton();
-            this.objectColorTextureRadioButton = new System.Windows.Forms.RadioButton();
-            this.objectColorButton = new System.Windows.Forms.Button();
             this.objectColorTexturePictureBox = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).BeginInit();
+            this.objectColorPictureBox = new System.Windows.Forms.PictureBox();
+            this.objectColorTextureRadioButton = new System.Windows.Forms.RadioButton();
+            this.objectColorSolidRadioButton = new System.Windows.Forms.RadioButton();
+            this.coefficientsGroupBox = new System.Windows.Forms.GroupBox();
+            this.mCoefficientLabel = new System.Windows.Forms.Label();
+            this.ksCoefficientLabel = new System.Windows.Forms.Label();
+            this.kdCoefficientLabel = new System.Windows.Forms.Label();
+            this.mTrackBar = new System.Windows.Forms.TrackBar();
+            this.ksTrackBar = new System.Windows.Forms.TrackBar();
+            this.kdTrackBar = new System.Windows.Forms.TrackBar();
+            this.randomCoefficientButton = new System.Windows.Forms.RadioButton();
+            this.setCoefficientRadioButton = new System.Windows.Forms.RadioButton();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.method3RadioButton = new System.Windows.Forms.RadioButton();
+            this.method2RadioButton = new System.Windows.Forms.RadioButton();
+            this.method1RadioButton = new System.Windows.Forms.RadioButton();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.drawEdgeCheckBox = new System.Windows.Forms.CheckBox();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.mainTableLayoutPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.sizeGroupBox.SuspendLayout();
             this.vectorNGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.vectorNTexturePicutreBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vectorNTexturePictureBox)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lightSourceColorPictureBox)).BeginInit();
             this.objectColorGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.objectColorTexturePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.objectColorPictureBox)).BeginInit();
+            this.coefficientsGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mTrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ksTrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kdTrackBar)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // mainPictureBox
-            // 
-            this.mainPictureBox.BackColor = System.Drawing.Color.White;
-            this.mainPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainPictureBox.Location = new System.Drawing.Point(3, 3);
-            this.mainPictureBox.Name = "mainPictureBox";
-            this.mainPictureBox.Size = new System.Drawing.Size(624, 555);
-            this.mainPictureBox.TabIndex = 0;
-            this.mainPictureBox.TabStop = false;
-            this.mainPictureBox.Layout += new System.Windows.Forms.LayoutEventHandler(this.mainPictureBox_Layout);
-            this.mainPictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mainPictureBox_MouseDown);
-            this.mainPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mainPictureBox_MouseMove);
-            this.mainPictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.mainPictureBox_MouseUp);
             // 
             // mainTableLayoutPanel
             // 
@@ -90,8 +99,22 @@
             this.mainTableLayoutPanel.Name = "mainTableLayoutPanel";
             this.mainTableLayoutPanel.RowCount = 1;
             this.mainTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.mainTableLayoutPanel.Size = new System.Drawing.Size(800, 561);
+            this.mainTableLayoutPanel.Size = new System.Drawing.Size(1034, 711);
             this.mainTableLayoutPanel.TabIndex = 0;
+            // 
+            // mainPictureBox
+            // 
+            this.mainPictureBox.BackColor = System.Drawing.Color.White;
+            this.mainPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainPictureBox.Location = new System.Drawing.Point(3, 3);
+            this.mainPictureBox.Name = "mainPictureBox";
+            this.mainPictureBox.Size = new System.Drawing.Size(858, 705);
+            this.mainPictureBox.TabIndex = 0;
+            this.mainPictureBox.TabStop = false;
+            this.mainPictureBox.Layout += new System.Windows.Forms.LayoutEventHandler(this.mainPictureBox_Layout);
+            this.mainPictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mainPictureBox_MouseDown);
+            this.mainPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mainPictureBox_MouseMove);
+            this.mainPictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.mainPictureBox_MouseUp);
             // 
             // tableLayoutPanel1
             // 
@@ -101,16 +124,21 @@
             this.tableLayoutPanel1.Controls.Add(this.vectorNGroupBox, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.objectColorGroupBox, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.coefficientsGroupBox, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox2, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 6);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(633, 3);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(867, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowCount = 7;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 23.64865F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 104F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 87F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 113F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 167F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(164, 555);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 101F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 181F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 139F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(164, 705);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // sizeGroupBox
@@ -123,7 +151,7 @@
             this.sizeGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sizeGroupBox.Location = new System.Drawing.Point(3, 3);
             this.sizeGroupBox.Name = "sizeGroupBox";
-            this.sizeGroupBox.Size = new System.Drawing.Size(158, 95);
+            this.sizeGroupBox.Size = new System.Drawing.Size(158, 92);
             this.sizeGroupBox.TabIndex = 0;
             this.sizeGroupBox.TabStop = false;
             this.sizeGroupBox.Text = "Size";
@@ -174,32 +202,33 @@
             // 
             // vectorNGroupBox
             // 
-            this.vectorNGroupBox.Controls.Add(this.vectorNTexturePicutreBox);
+            this.vectorNGroupBox.Controls.Add(this.vectorNTexturePictureBox);
             this.vectorNGroupBox.Controls.Add(this.vectorNRadioButtonCustom);
             this.vectorNGroupBox.Controls.Add(this.vectorNRadioButtonConst);
             this.vectorNGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.vectorNGroupBox.Location = new System.Drawing.Point(3, 104);
+            this.vectorNGroupBox.Location = new System.Drawing.Point(3, 101);
             this.vectorNGroupBox.Name = "vectorNGroupBox";
-            this.vectorNGroupBox.Size = new System.Drawing.Size(158, 98);
+            this.vectorNGroupBox.Size = new System.Drawing.Size(158, 81);
             this.vectorNGroupBox.TabIndex = 1;
             this.vectorNGroupBox.TabStop = false;
             this.vectorNGroupBox.Text = "Vector N";
             // 
-            // vectorNTexturePicutreBox
+            // vectorNTexturePictureBox
             // 
-            this.vectorNTexturePicutreBox.Image = global::GK_Projekt2.Properties.Resources.brick_normalmap;
-            this.vectorNTexturePicutreBox.Location = new System.Drawing.Point(100, 42);
-            this.vectorNTexturePicutreBox.Name = "vectorNTexturePicutreBox";
-            this.vectorNTexturePicutreBox.Size = new System.Drawing.Size(50, 50);
-            this.vectorNTexturePicutreBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.vectorNTexturePicutreBox.TabIndex = 3;
-            this.vectorNTexturePicutreBox.TabStop = false;
-            this.vectorNTexturePicutreBox.Click += new System.EventHandler(this.vectorNTexturePicutreBox_Click);
+            this.vectorNTexturePictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.vectorNTexturePictureBox.Image = global::GK_Projekt2.Properties.Resources.normalbrickwall;
+            this.vectorNTexturePictureBox.Location = new System.Drawing.Point(105, 36);
+            this.vectorNTexturePictureBox.Name = "vectorNTexturePictureBox";
+            this.vectorNTexturePictureBox.Size = new System.Drawing.Size(40, 40);
+            this.vectorNTexturePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.vectorNTexturePictureBox.TabIndex = 2;
+            this.vectorNTexturePictureBox.TabStop = false;
+            this.vectorNTexturePictureBox.Click += new System.EventHandler(this.vectorNTexturePictureBox_Click);
             // 
             // vectorNRadioButtonCustom
             // 
             this.vectorNRadioButtonCustom.AutoSize = true;
-            this.vectorNRadioButtonCustom.Location = new System.Drawing.Point(10, 58);
+            this.vectorNRadioButtonCustom.Location = new System.Drawing.Point(10, 47);
             this.vectorNRadioButtonCustom.Name = "vectorNRadioButtonCustom";
             this.vectorNRadioButtonCustom.Size = new System.Drawing.Size(61, 17);
             this.vectorNRadioButtonCustom.TabIndex = 1;
@@ -221,15 +250,27 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.lightSourceColorPictureBox);
             this.groupBox1.Controls.Add(this.lightSourceMovingRadioButton);
             this.groupBox1.Controls.Add(this.lightSourceConstRadioButton);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(3, 208);
+            this.groupBox1.Location = new System.Drawing.Point(3, 188);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(158, 64);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Light source";
+            // 
+            // lightSourceColorPictureBox
+            // 
+            this.lightSourceColorPictureBox.BackColor = System.Drawing.Color.White;
+            this.lightSourceColorPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lightSourceColorPictureBox.Location = new System.Drawing.Point(105, 25);
+            this.lightSourceColorPictureBox.Name = "lightSourceColorPictureBox";
+            this.lightSourceColorPictureBox.Size = new System.Drawing.Size(40, 23);
+            this.lightSourceColorPictureBox.TabIndex = 6;
+            this.lightSourceColorPictureBox.TabStop = false;
+            this.lightSourceColorPictureBox.Click += new System.EventHandler(this.lightSourceColorPictureBox_Click);
             // 
             // lightSourceMovingRadioButton
             // 
@@ -255,23 +296,53 @@
             this.lightSourceConstRadioButton.UseVisualStyleBackColor = true;
             this.lightSourceConstRadioButton.CheckedChanged += new System.EventHandler(this.lightSourceConstRadioButton_CheckedChanged);
             // 
-            // errorProvider1
-            // 
-            this.errorProvider1.ContainerControl = this;
-            // 
             // objectColorGroupBox
             // 
             this.objectColorGroupBox.Controls.Add(this.objectColorTexturePictureBox);
-            this.objectColorGroupBox.Controls.Add(this.objectColorButton);
+            this.objectColorGroupBox.Controls.Add(this.objectColorPictureBox);
             this.objectColorGroupBox.Controls.Add(this.objectColorTextureRadioButton);
             this.objectColorGroupBox.Controls.Add(this.objectColorSolidRadioButton);
             this.objectColorGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.objectColorGroupBox.Location = new System.Drawing.Point(3, 278);
+            this.objectColorGroupBox.Location = new System.Drawing.Point(3, 258);
             this.objectColorGroupBox.Name = "objectColorGroupBox";
-            this.objectColorGroupBox.Size = new System.Drawing.Size(158, 107);
+            this.objectColorGroupBox.Size = new System.Drawing.Size(158, 95);
             this.objectColorGroupBox.TabIndex = 3;
             this.objectColorGroupBox.TabStop = false;
             this.objectColorGroupBox.Text = "Object Color";
+            // 
+            // objectColorTexturePictureBox
+            // 
+            this.objectColorTexturePictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.objectColorTexturePictureBox.Image = global::GK_Projekt2.Properties.Resources.newkoala;
+            this.objectColorTexturePictureBox.Location = new System.Drawing.Point(105, 49);
+            this.objectColorTexturePictureBox.Name = "objectColorTexturePictureBox";
+            this.objectColorTexturePictureBox.Size = new System.Drawing.Size(40, 40);
+            this.objectColorTexturePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.objectColorTexturePictureBox.TabIndex = 6;
+            this.objectColorTexturePictureBox.TabStop = false;
+            this.objectColorTexturePictureBox.Click += new System.EventHandler(this.objectColorTexturePictureBox_Click);
+            // 
+            // objectColorPictureBox
+            // 
+            this.objectColorPictureBox.BackColor = System.Drawing.Color.MediumSpringGreen;
+            this.objectColorPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.objectColorPictureBox.Location = new System.Drawing.Point(105, 20);
+            this.objectColorPictureBox.Name = "objectColorPictureBox";
+            this.objectColorPictureBox.Size = new System.Drawing.Size(40, 23);
+            this.objectColorPictureBox.TabIndex = 5;
+            this.objectColorPictureBox.TabStop = false;
+            this.objectColorPictureBox.Click += new System.EventHandler(this.objectColorPictureBox_Click);
+            // 
+            // objectColorTextureRadioButton
+            // 
+            this.objectColorTextureRadioButton.AutoSize = true;
+            this.objectColorTextureRadioButton.Location = new System.Drawing.Point(10, 59);
+            this.objectColorTextureRadioButton.Name = "objectColorTextureRadioButton";
+            this.objectColorTextureRadioButton.Size = new System.Drawing.Size(61, 17);
+            this.objectColorTextureRadioButton.TabIndex = 1;
+            this.objectColorTextureRadioButton.Text = "Texture";
+            this.objectColorTextureRadioButton.UseVisualStyleBackColor = true;
+            this.objectColorTextureRadioButton.CheckedChanged += new System.EventHandler(this.objectColorTextureRadioButton_CheckedChanged);
             // 
             // objectColorSolidRadioButton
             // 
@@ -286,62 +357,214 @@
             this.objectColorSolidRadioButton.UseVisualStyleBackColor = true;
             this.objectColorSolidRadioButton.CheckedChanged += new System.EventHandler(this.objectColorSolidRadioButton_CheckedChanged);
             // 
-            // objectColorTextureRadioButton
+            // coefficientsGroupBox
             // 
-            this.objectColorTextureRadioButton.AutoSize = true;
-            this.objectColorTextureRadioButton.Location = new System.Drawing.Point(10, 65);
-            this.objectColorTextureRadioButton.Name = "objectColorTextureRadioButton";
-            this.objectColorTextureRadioButton.Size = new System.Drawing.Size(61, 17);
-            this.objectColorTextureRadioButton.TabIndex = 1;
-            this.objectColorTextureRadioButton.Text = "Texture";
-            this.objectColorTextureRadioButton.UseVisualStyleBackColor = true;
+            this.coefficientsGroupBox.Controls.Add(this.mCoefficientLabel);
+            this.coefficientsGroupBox.Controls.Add(this.ksCoefficientLabel);
+            this.coefficientsGroupBox.Controls.Add(this.kdCoefficientLabel);
+            this.coefficientsGroupBox.Controls.Add(this.mTrackBar);
+            this.coefficientsGroupBox.Controls.Add(this.ksTrackBar);
+            this.coefficientsGroupBox.Controls.Add(this.kdTrackBar);
+            this.coefficientsGroupBox.Controls.Add(this.randomCoefficientButton);
+            this.coefficientsGroupBox.Controls.Add(this.setCoefficientRadioButton);
+            this.coefficientsGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.coefficientsGroupBox.Location = new System.Drawing.Point(3, 359);
+            this.coefficientsGroupBox.Name = "coefficientsGroupBox";
+            this.coefficientsGroupBox.Size = new System.Drawing.Size(158, 175);
+            this.coefficientsGroupBox.TabIndex = 4;
+            this.coefficientsGroupBox.TabStop = false;
+            this.coefficientsGroupBox.Text = "Coefficient";
             // 
-            // objectColorButton
+            // mCoefficientLabel
             // 
-            this.objectColorButton.BackColor = System.Drawing.Color.Cyan;
-            this.objectColorButton.FlatAppearance.BorderSize = 0;
-            this.objectColorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.objectColorButton.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.objectColorButton.Location = new System.Drawing.Point(100, 20);
-            this.objectColorButton.Name = "objectColorButton";
-            this.objectColorButton.Size = new System.Drawing.Size(52, 23);
-            this.objectColorButton.TabIndex = 2;
-            this.objectColorButton.UseVisualStyleBackColor = false;
-            this.objectColorButton.Click += new System.EventHandler(this.objectColorButton_Click);
+            this.mCoefficientLabel.AutoSize = true;
+            this.mCoefficientLabel.Location = new System.Drawing.Point(6, 143);
+            this.mCoefficientLabel.Name = "mCoefficientLabel";
+            this.mCoefficientLabel.Size = new System.Drawing.Size(18, 13);
+            this.mCoefficientLabel.TabIndex = 7;
+            this.mCoefficientLabel.Text = "m:";
             // 
-            // objectColorTexturePictureBox
+            // ksCoefficientLabel
             // 
-            this.objectColorTexturePictureBox.Image = global::GK_Projekt2.Properties.Resources.brick_normalmap;
-            this.objectColorTexturePictureBox.Location = new System.Drawing.Point(100, 49);
-            this.objectColorTexturePictureBox.Name = "objectColorTexturePictureBox";
-            this.objectColorTexturePictureBox.Size = new System.Drawing.Size(50, 50);
-            this.objectColorTexturePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.objectColorTexturePictureBox.TabIndex = 4;
-            this.objectColorTexturePictureBox.TabStop = false;
-            this.objectColorTexturePictureBox.Click += new System.EventHandler(this.objectColorTexturePictureBox_Click);
+            this.ksCoefficientLabel.AutoSize = true;
+            this.ksCoefficientLabel.Location = new System.Drawing.Point(5, 100);
+            this.ksCoefficientLabel.Name = "ksCoefficientLabel";
+            this.ksCoefficientLabel.Size = new System.Drawing.Size(22, 13);
+            this.ksCoefficientLabel.TabIndex = 6;
+            this.ksCoefficientLabel.Text = "Ks:";
+            // 
+            // kdCoefficientLabel
+            // 
+            this.kdCoefficientLabel.AutoSize = true;
+            this.kdCoefficientLabel.Location = new System.Drawing.Point(5, 49);
+            this.kdCoefficientLabel.Name = "kdCoefficientLabel";
+            this.kdCoefficientLabel.Size = new System.Drawing.Size(23, 13);
+            this.kdCoefficientLabel.TabIndex = 5;
+            this.kdCoefficientLabel.Text = "Kd:";
+            // 
+            // mTrackBar
+            // 
+            this.mTrackBar.Location = new System.Drawing.Point(38, 138);
+            this.mTrackBar.Maximum = 100;
+            this.mTrackBar.Minimum = 1;
+            this.mTrackBar.Name = "mTrackBar";
+            this.mTrackBar.Size = new System.Drawing.Size(113, 45);
+            this.mTrackBar.TabIndex = 4;
+            this.mTrackBar.Value = 50;
+            this.mTrackBar.ValueChanged += new System.EventHandler(this.mTrackBar_ValueChanged);
+            // 
+            // ksTrackBar
+            // 
+            this.ksTrackBar.Location = new System.Drawing.Point(38, 94);
+            this.ksTrackBar.Maximum = 100;
+            this.ksTrackBar.Name = "ksTrackBar";
+            this.ksTrackBar.Size = new System.Drawing.Size(113, 45);
+            this.ksTrackBar.TabIndex = 3;
+            this.ksTrackBar.Value = 50;
+            this.ksTrackBar.ValueChanged += new System.EventHandler(this.ksTrackBar_ValueChanged);
+            // 
+            // kdTrackBar
+            // 
+            this.kdTrackBar.Location = new System.Drawing.Point(38, 43);
+            this.kdTrackBar.Maximum = 100;
+            this.kdTrackBar.Name = "kdTrackBar";
+            this.kdTrackBar.Size = new System.Drawing.Size(113, 45);
+            this.kdTrackBar.TabIndex = 2;
+            this.kdTrackBar.Value = 50;
+            this.kdTrackBar.ValueChanged += new System.EventHandler(this.kdTrackBar_ValueChanged);
+            // 
+            // randomCoefficientButton
+            // 
+            this.randomCoefficientButton.AutoSize = true;
+            this.randomCoefficientButton.Location = new System.Drawing.Point(69, 20);
+            this.randomCoefficientButton.Name = "randomCoefficientButton";
+            this.randomCoefficientButton.Size = new System.Drawing.Size(65, 17);
+            this.randomCoefficientButton.TabIndex = 1;
+            this.randomCoefficientButton.Text = "Random";
+            this.randomCoefficientButton.UseVisualStyleBackColor = true;
+            // 
+            // setCoefficientRadioButton
+            // 
+            this.setCoefficientRadioButton.AutoSize = true;
+            this.setCoefficientRadioButton.Checked = true;
+            this.setCoefficientRadioButton.Location = new System.Drawing.Point(10, 20);
+            this.setCoefficientRadioButton.Name = "setCoefficientRadioButton";
+            this.setCoefficientRadioButton.Size = new System.Drawing.Size(41, 17);
+            this.setCoefficientRadioButton.TabIndex = 0;
+            this.setCoefficientRadioButton.TabStop = true;
+            this.setCoefficientRadioButton.Text = "Set";
+            this.setCoefficientRadioButton.UseVisualStyleBackColor = true;
+            this.setCoefficientRadioButton.CheckedChanged += new System.EventHandler(this.setCoefficientRadioButton_CheckedChanged);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.method3RadioButton);
+            this.groupBox2.Controls.Add(this.method2RadioButton);
+            this.groupBox2.Controls.Add(this.method1RadioButton);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(3, 540);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(158, 133);
+            this.groupBox2.TabIndex = 5;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Filling method";
+            // 
+            // method3RadioButton
+            // 
+            this.method3RadioButton.AutoSize = true;
+            this.method3RadioButton.Location = new System.Drawing.Point(10, 98);
+            this.method3RadioButton.Name = "method3RadioButton";
+            this.method3RadioButton.Size = new System.Drawing.Size(55, 17);
+            this.method3RadioButton.TabIndex = 2;
+            this.method3RadioButton.TabStop = true;
+            this.method3RadioButton.Text = "Hybrid";
+            this.method3RadioButton.UseVisualStyleBackColor = true;
+            this.method3RadioButton.CheckedChanged += new System.EventHandler(this.method3RadioButton_CheckedChanged);
+            // 
+            // method2RadioButton
+            // 
+            this.method2RadioButton.AutoSize = true;
+            this.method2RadioButton.Location = new System.Drawing.Point(10, 63);
+            this.method2RadioButton.Name = "method2RadioButton";
+            this.method2RadioButton.Size = new System.Drawing.Size(68, 17);
+            this.method2RadioButton.TabIndex = 1;
+            this.method2RadioButton.TabStop = true;
+            this.method2RadioButton.Text = "sposob 2";
+            this.method2RadioButton.UseVisualStyleBackColor = true;
+            this.method2RadioButton.CheckedChanged += new System.EventHandler(this.method2RadioButton_CheckedChanged);
+            // 
+            // method1RadioButton
+            // 
+            this.method1RadioButton.AutoSize = true;
+            this.method1RadioButton.Checked = true;
+            this.method1RadioButton.Location = new System.Drawing.Point(10, 28);
+            this.method1RadioButton.Name = "method1RadioButton";
+            this.method1RadioButton.Size = new System.Drawing.Size(52, 17);
+            this.method1RadioButton.TabIndex = 0;
+            this.method1RadioButton.TabStop = true;
+            this.method1RadioButton.Text = "Exact";
+            this.method1RadioButton.UseVisualStyleBackColor = true;
+            this.method1RadioButton.CheckedChanged += new System.EventHandler(this.method1RadioButton_CheckedChanged);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.drawEdgeCheckBox);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 679);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(158, 23);
+            this.panel1.TabIndex = 6;
+            // 
+            // drawEdgeCheckBox
+            // 
+            this.drawEdgeCheckBox.AutoSize = true;
+            this.drawEdgeCheckBox.Checked = true;
+            this.drawEdgeCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.drawEdgeCheckBox.Location = new System.Drawing.Point(9, 3);
+            this.drawEdgeCheckBox.Name = "drawEdgeCheckBox";
+            this.drawEdgeCheckBox.Size = new System.Drawing.Size(83, 17);
+            this.drawEdgeCheckBox.TabIndex = 0;
+            this.drawEdgeCheckBox.Text = "Draw edges";
+            this.drawEdgeCheckBox.UseVisualStyleBackColor = true;
+            this.drawEdgeCheckBox.CheckedChanged += new System.EventHandler(this.drawEdgeCheckBox_CheckedChanged);
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 561);
+            this.ClientSize = new System.Drawing.Size(1034, 711);
             this.Controls.Add(this.mainTableLayoutPanel);
             this.Name = "mainForm";
             this.Text = "Krzysztof Wozniak - GK Projekt 2";
-            ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).EndInit();
             this.mainTableLayoutPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.sizeGroupBox.ResumeLayout(false);
             this.sizeGroupBox.PerformLayout();
             this.vectorNGroupBox.ResumeLayout(false);
             this.vectorNGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.vectorNTexturePicutreBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vectorNTexturePictureBox)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lightSourceColorPictureBox)).EndInit();
             this.objectColorGroupBox.ResumeLayout(false);
             this.objectColorGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.objectColorTexturePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.objectColorPictureBox)).EndInit();
+            this.coefficientsGroupBox.ResumeLayout(false);
+            this.coefficientsGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mTrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ksTrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kdTrackBar)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -361,16 +584,31 @@
         private System.Windows.Forms.GroupBox vectorNGroupBox;
         private System.Windows.Forms.RadioButton vectorNRadioButtonCustom;
         private System.Windows.Forms.RadioButton vectorNRadioButtonConst;
-        private System.Windows.Forms.PictureBox vectorNTexturePicutreBox;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton lightSourceConstRadioButton;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.RadioButton lightSourceMovingRadioButton;
         private System.Windows.Forms.GroupBox objectColorGroupBox;
-        private System.Windows.Forms.PictureBox objectColorTexturePictureBox;
-        private System.Windows.Forms.Button objectColorButton;
         private System.Windows.Forms.RadioButton objectColorTextureRadioButton;
         private System.Windows.Forms.RadioButton objectColorSolidRadioButton;
+        private System.Windows.Forms.PictureBox objectColorPictureBox;
+        private System.Windows.Forms.GroupBox coefficientsGroupBox;
+        private System.Windows.Forms.PictureBox lightSourceColorPictureBox;
+        private System.Windows.Forms.Label mCoefficientLabel;
+        private System.Windows.Forms.Label ksCoefficientLabel;
+        private System.Windows.Forms.Label kdCoefficientLabel;
+        private System.Windows.Forms.TrackBar mTrackBar;
+        private System.Windows.Forms.TrackBar ksTrackBar;
+        private System.Windows.Forms.TrackBar kdTrackBar;
+        private System.Windows.Forms.RadioButton randomCoefficientButton;
+        private System.Windows.Forms.RadioButton setCoefficientRadioButton;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.RadioButton method3RadioButton;
+        private System.Windows.Forms.RadioButton method2RadioButton;
+        private System.Windows.Forms.RadioButton method1RadioButton;
+        private System.Windows.Forms.PictureBox vectorNTexturePictureBox;
+        private System.Windows.Forms.PictureBox objectColorTexturePictureBox;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.CheckBox drawEdgeCheckBox;
     }
 }
 

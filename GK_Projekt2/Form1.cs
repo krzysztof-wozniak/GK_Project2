@@ -18,18 +18,33 @@ namespace GK_Projekt2
         private DirectBitmap oldImage;
         public Vector3D a;
         private Pen pen = new Pen(Color.Black);
-        private DirectBitmap vectorNTexture;
-        private DirectBitmap objectColorTexture;
-        private bool drawEdges = true;
 
+        public static DirectBitmap VectorNTexture { get; private set; }
+        public static DirectBitmap ObjectColorTexture { get; private set; }
+
+        private bool drawEdges = true;
         private int minDistanceToPoint = 10;
         private int nearestI = -1;
         private int nearestJ = -1;
-
-        private bool constLightSource = true;
-        private bool constVectorN = true;
         private bool movingPoint = false;
-        private bool constObjectColor = true;
+
+
+        public static bool ConstLightSource { get; private set; }
+        public static bool ConstVectorN { get; private set; }
+        public static bool ConstObjectColor { get; private set; }
+        public static bool SetCoefficient { get; private set; }
+        public static Color ObjectColor { get; private set; }
+        public static Color LightColor { get; private set; }
+        public static double KdCo { get; private set; }
+        public static double KsCo { get; private set; }
+        public static double MCo { get; private set; }
+        public static bool Method1 { get; private set; }
+        public static bool Method2 { get; private set; }
+        public static bool Method3 { get; private set; }
+        public static Vector3D defaultN { get; private set; }
+        public static Vector3D defaultL { get; private set; }
+        public static Point3D LightSource { get; private set; }
+
 
         public mainForm()
         {
@@ -37,6 +52,30 @@ namespace GK_Projekt2
             nTextBox.Text = triangles.N.ToString();
             mTextBox.Text = triangles.M.ToString();
             this.ActiveControl = sizeGroupBox;
+            ObjectColor = objectColorPictureBox.BackColor;
+            ConstLightSource = true;
+            ConstVectorN = true;
+            ConstObjectColor = true;
+            //ObjectColorTexture = new Bitmap("koala.jpg")
+            lightSourceColorPictureBox.BackColor = Color.FromArgb(1, 1, 1);
+            LightColor = lightSourceColorPictureBox.BackColor;
+            KdCo = 0.5;
+            KsCo = 0.5;
+            MCo = 50;
+            Method1 = true;
+            Method2 = false;
+            Method3 = false;
+            defaultN = new Vector3D(0, 0, 1);
+            defaultL = new Vector3D(0, 0, 1);
+            ObjectColorTexture = new DirectBitmap(mainPictureBox.Width, mainPictureBox.Height);
+            Bitmap temp = new Bitmap(GK_Projekt2.Properties.Resources.newkoala, mainPictureBox.Width, mainPictureBox.Height);
+            ObjectColorTexture.SetBitmap(temp);
+            temp.Dispose();
+            //var l = GK_Projekt2.Properties.Resources.brick_normalmap;
+            temp = new Bitmap(GK_Projekt2.Properties.Resources.normalbrickwall);
+            VectorNTexture = new DirectBitmap(temp.Width, temp.Height);
+            VectorNTexture.SetBitmap(temp);
+            temp.Dispose();
         }
 
         protected override void OnShown(EventArgs e)
@@ -44,7 +83,10 @@ namespace GK_Projekt2
             base.OnShown(e);
             triangles.InitTriangles(mainPictureBox.Width, mainPictureBox.Height);
             UpdatePictureBox();
-            //var i = vectorNTexturePicutreBox.Image;
+            //SolidColor = objectColorPictureBox.BackColor;
+            //ConstLightSource = true;
+            //ConstVectorN = true;
+            //ConstObjectColor = true;
         }
 
         private void mainPictureBox_Layout(object sender, LayoutEventArgs e)
@@ -176,7 +218,7 @@ namespace GK_Projekt2
             oldImage = this.image;
             this.image = new DirectBitmap(mainPictureBox.Width, mainPictureBox.Height);
             Drawer.FillPolygons(image, triangles);
-            if(drawEdges)
+            if(drawEdgeCheckBox.Checked)
                 Drawer.DrawPolygon(image, triangles.Points, pen);
             mainPictureBox.Image = image.Bitmap;
             if(oldImage != null)
@@ -187,25 +229,18 @@ namespace GK_Projekt2
         {
             if(vectorNRadioButtonConst.Checked)
             {
-                constVectorN = true;
+                ConstVectorN = true;
             }
             else
             {
-                constVectorN = false;
+                ConstVectorN = false;
             }
-        }
-
-        private void objectColorButton_Click(object sender, EventArgs e)
-        {
-            using (ColorDialog colorDialog = new ColorDialog())
-                if (colorDialog.ShowDialog() == DialogResult.OK)
-                {
-                    objectColorButton.BackColor = colorDialog.Color;
-                }
+            UpdatePictureBox();
         }
         
+        
 
-        private void vectorNTexturePicutreBox_Click(object sender, EventArgs e)
+        private void vectorNTexturePictureBox_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
@@ -214,18 +249,19 @@ namespace GK_Projekt2
                 Image image = null;
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    if (vectorNTexture != null)
-                        vectorNTexture.Dispose();
-                    Image oldImage = vectorNTexturePicutreBox.Image;
+                    if (VectorNTexture != null)
+                        VectorNTexture.Dispose();
+                    Image oldImage = vectorNTexturePictureBox.Image;
                     image = Image.FromFile(openFileDialog.FileName);
                     Bitmap bitmap = new Bitmap(image, mainPictureBox.Width, mainPictureBox.Height);
-                    vectorNTexture = new DirectBitmap(image.Width, image.Height);
-                    vectorNTexture.SetBitmap(bitmap);
+                    VectorNTexture = new DirectBitmap(image.Width, image.Height);
+                    VectorNTexture.SetBitmap(bitmap);
                     bitmap.Dispose();
                     //mainPictureBox.Image = vectorNTexture.Bitmap;
-                    vectorNTexturePicutreBox.Image = image;
+                    vectorNTexturePictureBox.Image = image;
                     if (oldImage != null)
                         oldImage.Dispose();
+                    UpdatePictureBox();
                 }
             }
         }
@@ -239,18 +275,19 @@ namespace GK_Projekt2
                 Image image = null;
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    if (objectColorTexture != null)
-                        objectColorTexture.Dispose();
-                    Image oldImage = vectorNTexturePicutreBox.Image;
+                    if (ObjectColorTexture != null)
+                        ObjectColorTexture.Dispose();
+                    Image oldImage = vectorNTexturePictureBox.Image;
                     image = Image.FromFile(openFileDialog.FileName);
                     Bitmap bitmap = new Bitmap(image, mainPictureBox.Width, mainPictureBox.Height);
-                    objectColorTexture = new DirectBitmap(image.Width, image.Height);
-                    objectColorTexture.SetBitmap(bitmap);
+                    ObjectColorTexture = new DirectBitmap(image.Width, image.Height);
+                    ObjectColorTexture.SetBitmap(bitmap);
                     bitmap.Dispose();
-                    mainPictureBox.Image = objectColorTexture.Bitmap;
+                    //mainPictureBox.Image = ObjectColorTexture.Bitmap;
                     objectColorTexturePictureBox.Image = image;
                     if (oldImage != null)
                         oldImage.Dispose();
+                    UpdatePictureBox();
                 }
             }
         }
@@ -259,24 +296,147 @@ namespace GK_Projekt2
         {
             if (lightSourceConstRadioButton.Checked)
             {
-                constLightSource = true;
+                ConstLightSource = true;
             }
             else
             {
-                constLightSource = false;
+                ConstLightSource = false;
             }
+            UpdatePictureBox();
+
         }
 
         private void objectColorSolidRadioButton_CheckedChanged(object sender, EventArgs e)
         {
             if (objectColorSolidRadioButton.Checked)
             {
-                constObjectColor = true;
+                ConstObjectColor = true;
             }
             else
             {
-                constObjectColor = false;
+                ConstObjectColor = false;
             }
+            UpdatePictureBox();
+        }
+        
+
+        private void objectColorPictureBox_Click(object sender, EventArgs e)
+        {
+            using (ColorDialog colorDialog = new ColorDialog())
+            {
+                if (colorDialog.ShowDialog() == DialogResult.OK)
+                {
+                    objectColorPictureBox.BackColor = colorDialog.Color;
+                    ObjectColor = colorDialog.Color;
+                    UpdatePictureBox();
+                }
+            }
+        }
+
+        private void lightSourceColorPictureBox_Click(object sender, EventArgs e)
+        {
+            using (ColorDialog colorDialog = new ColorDialog())
+            {
+                if (colorDialog.ShowDialog() == DialogResult.OK)
+                {
+                    lightSourceColorPictureBox.BackColor = colorDialog.Color;
+                    LightColor = colorDialog.Color;
+                    UpdatePictureBox();
+                }
+            }
+        }
+
+        private void kdTrackBar_ValueChanged(object sender, EventArgs e)
+        {
+            KdCo = (double)kdTrackBar.Value * 0.01;
+            UpdatePictureBox();
+        }
+
+        private void ksTrackBar_ValueChanged(object sender, EventArgs e)
+        {
+            KsCo = (double)ksTrackBar.Value * 0.01;
+            UpdatePictureBox();
+        }
+
+        private void mTrackBar_ValueChanged(object sender, EventArgs e)
+        {
+            MCo = (double)mTrackBar.Value;
+            UpdatePictureBox();
+        }
+
+        private void setCoefficientRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (setCoefficientRadioButton.Checked)
+            {
+                SetCoefficient = true;
+            }
+            else
+            {
+                SetCoefficient = false;
+            }
+            UpdatePictureBox();
+        }
+
+        private void method1RadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if(method1RadioButton.Checked)
+            {
+                Method1 = true;
+            }
+            else
+            {
+                Method1 = false;
+            }
+            UpdatePictureBox();
+        }
+
+        private void method2RadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (method2RadioButton.Checked)
+            {
+                Method2 = true;
+            }
+            else
+            {
+                Method2 = false;
+            }
+            UpdatePictureBox();
+        }
+
+        private void method3RadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (method3RadioButton.Checked)
+            {
+                Method3 = true;
+            }
+            else
+            {
+                Method3 = false;
+            }
+            UpdatePictureBox();
+        }
+
+        private void objectColorTextureRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (objectColorTextureRadioButton.Checked)
+            {
+                ConstObjectColor = false;
+            }
+            else
+            {
+                ConstObjectColor = true;
+            }
+            UpdatePictureBox();
+        }
+
+        private void objectColorTexturePictureBox_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void drawEdgeCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdatePictureBox();
         }
     }
 }
