@@ -477,10 +477,10 @@
             this.method3RadioButton.AutoSize = true;
             this.method3RadioButton.Location = new System.Drawing.Point(10, 98);
             this.method3RadioButton.Name = "method3RadioButton";
-            this.method3RadioButton.Size = new System.Drawing.Size(55, 17);
+            this.method3RadioButton.Size = new System.Drawing.Size(95, 17);
             this.method3RadioButton.TabIndex = 2;
             this.method3RadioButton.TabStop = true;
-            this.method3RadioButton.Text = "Hybrid";
+            this.method3RadioButton.Text = "Hybrid (TODO)";
             this.method3RadioButton.UseVisualStyleBackColor = true;
             this.method3RadioButton.CheckedChanged += new System.EventHandler(this.method3RadioButton_CheckedChanged);
             // 
@@ -489,10 +489,10 @@
             this.method2RadioButton.AutoSize = true;
             this.method2RadioButton.Location = new System.Drawing.Point(10, 63);
             this.method2RadioButton.Name = "method2RadioButton";
-            this.method2RadioButton.Size = new System.Drawing.Size(68, 17);
+            this.method2RadioButton.Size = new System.Drawing.Size(45, 17);
             this.method2RadioButton.TabIndex = 1;
             this.method2RadioButton.TabStop = true;
-            this.method2RadioButton.Text = "sposob 2";
+            this.method2RadioButton.Text = "Fast";
             this.method2RadioButton.UseVisualStyleBackColor = true;
             this.method2RadioButton.CheckedChanged += new System.EventHandler(this.method2RadioButton_CheckedChanged);
             // 
