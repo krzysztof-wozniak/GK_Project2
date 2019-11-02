@@ -28,23 +28,26 @@ namespace GK_Projekt2
         private int nearestJ = -1;
         private bool movingPoint = false;
 
-
+        public static Random Random = new Random();
         public static bool ConstLightSource { get; private set; }
         public static bool ConstVectorN { get; private set; }
         public static bool ConstObjectColor { get; private set; }
         public static bool SetCoefficient { get; private set; }
         public static Color ObjectColor { get; private set; }
         public static Color LightColor { get; private set; }
-        public static double KdCo { get; private set; }
-        public static double KsCo { get; private set; }
-        public static double MCo { get; private set; }
-        public static bool Method1 { get; private set; }
-        public static bool Method2 { get; private set; }
-        public static bool Method3 { get; private set; }
+        public static double KdCo { get; private set; } = 0.5;
+        public static double KsCo { get; private set; } = 0.5;
+        public static double MCo { get; private set; } = 50;
+        public static bool Method1 { get; private set; } = true;
+        public static bool Method2 { get; private set; } = false;
+        public static bool Method3 { get; private set; } = false;
         public static Vector3D defaultN { get; private set; }
         public static Vector3D defaultL { get; private set; }
         public static Point3D LightSource { get; private set; }
-
+        private double Radius = 200;
+        private double time = 0;
+        private double lightSourceHeight = 100;
+        
 
         public mainForm()
         {
@@ -57,14 +60,8 @@ namespace GK_Projekt2
             ConstVectorN = true;
             ConstObjectColor = true;
             //ObjectColorTexture = new Bitmap("koala.jpg")
-            lightSourceColorPictureBox.BackColor = Color.FromArgb(1, 1, 1);
+            lightSourceColorPictureBox.BackColor = Color.FromArgb(255, 255, 255);
             LightColor = lightSourceColorPictureBox.BackColor;
-            KdCo = 0.5;
-            KsCo = 0.5;
-            MCo = 50;
-            Method1 = true;
-            Method2 = false;
-            Method3 = false;
             defaultN = new Vector3D(0, 0, 1);
             defaultL = new Vector3D(0, 0, 1);
             ObjectColorTexture = new DirectBitmap(mainPictureBox.Width, mainPictureBox.Height);
@@ -76,6 +73,8 @@ namespace GK_Projekt2
             VectorNTexture = new DirectBitmap(temp.Width, temp.Height);
             VectorNTexture.SetBitmap(temp);
             temp.Dispose();
+            LightSource = new Point3D(Radius * Math.Cos(time) + mainPictureBox.Width / 2, Radius * Math.Sin(time) + mainPictureBox.Height / 2, lightSourceHeight);
+            SetCoefficient = true;
         }
 
         protected override void OnShown(EventArgs e)
@@ -83,10 +82,6 @@ namespace GK_Projekt2
             base.OnShown(e);
             triangles.InitTriangles(mainPictureBox.Width, mainPictureBox.Height);
             UpdatePictureBox();
-            //SolidColor = objectColorPictureBox.BackColor;
-            //ConstLightSource = true;
-            //ConstVectorN = true;
-            //ConstObjectColor = true;
         }
 
         private void mainPictureBox_Layout(object sender, LayoutEventArgs e)
@@ -244,7 +239,7 @@ namespace GK_Projekt2
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.Filter = "Image Files(*.BMP; *.JPG; *.GIF)| *.BMP; *.JPG; *.GIF | All files(*.*) | *.*";
+                openFileDialog.Filter = "Image Files(*.BMP; *.JPG; *.PNG; *.GIF)| *.BMP; *.JPG; *.PNG; *.GIF | All files(*.*) | *.*";
                 openFileDialog.RestoreDirectory = true;
                 Image image = null;
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -254,7 +249,7 @@ namespace GK_Projekt2
                     Image oldImage = vectorNTexturePictureBox.Image;
                     image = Image.FromFile(openFileDialog.FileName);
                     Bitmap bitmap = new Bitmap(image, mainPictureBox.Width, mainPictureBox.Height);
-                    VectorNTexture = new DirectBitmap(image.Width, image.Height);
+                    VectorNTexture = new DirectBitmap(bitmap.Width, bitmap.Height);
                     VectorNTexture.SetBitmap(bitmap);
                     bitmap.Dispose();
                     //mainPictureBox.Image = vectorNTexture.Bitmap;
@@ -270,17 +265,17 @@ namespace GK_Projekt2
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.Filter = "Image Files(*.BMP; *.JPG; *.GIF)| *.BMP; *.JPG; *.GIF | All files(*.*) | *.*";
+                openFileDialog.Filter = "Image Files(*.BMP; *.JPG; *.PNG; *.GIF)| *.BMP; *.JPG; *.PNG; *.GIF | All files(*.*) | *.*";
                 openFileDialog.RestoreDirectory = true;
                 Image image = null;
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     if (ObjectColorTexture != null)
                         ObjectColorTexture.Dispose();
-                    Image oldImage = vectorNTexturePictureBox.Image;
+                    Image oldImage = objectColorTexturePictureBox.Image;
                     image = Image.FromFile(openFileDialog.FileName);
                     Bitmap bitmap = new Bitmap(image, mainPictureBox.Width, mainPictureBox.Height);
-                    ObjectColorTexture = new DirectBitmap(image.Width, image.Height);
+                    ObjectColorTexture = new DirectBitmap(bitmap.Width, bitmap.Height);
                     ObjectColorTexture.SetBitmap(bitmap);
                     bitmap.Dispose();
                     //mainPictureBox.Image = ObjectColorTexture.Bitmap;
@@ -437,6 +432,31 @@ namespace GK_Projekt2
         private void drawEdgeCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             UpdatePictureBox();
+        }
+
+        private void lightSourceMovingRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if(lightSourceMovingRadioButton.Checked)
+            {
+                timer1.Start();
+                ConstLightSource = false;
+            }
+            else
+            {
+                timer1.Stop();
+                ConstLightSource = true;
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            time += 0.1;
+            if (time > Math.PI * 2)
+                time = 0;
+            LightSource = new Point3D(Radius * Math.Cos(time) + mainPictureBox.Width / 2, Radius * Math.Sin(2 * time) + mainPictureBox.Height / 2, lightSourceHeight * (Math.Sin(time) + 2.5));
+            
+            UpdatePictureBox();
+            
         }
     }
 }

@@ -67,6 +67,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.drawEdgeCheckBox = new System.Windows.Forms.CheckBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.mainTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
@@ -109,6 +110,7 @@
             this.mainPictureBox.Location = new System.Drawing.Point(3, 3);
             this.mainPictureBox.Name = "mainPictureBox";
             this.mainPictureBox.Size = new System.Drawing.Size(858, 705);
+            this.mainPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.mainPictureBox.TabIndex = 0;
             this.mainPictureBox.TabStop = false;
             this.mainPictureBox.Layout += new System.Windows.Forms.LayoutEventHandler(this.mainPictureBox_Layout);
@@ -282,6 +284,7 @@
             this.lightSourceMovingRadioButton.TabStop = true;
             this.lightSourceMovingRadioButton.Text = "Moving";
             this.lightSourceMovingRadioButton.UseVisualStyleBackColor = true;
+            this.lightSourceMovingRadioButton.CheckedChanged += new System.EventHandler(this.lightSourceMovingRadioButton_CheckedChanged);
             // 
             // lightSourceConstRadioButton
             // 
@@ -532,6 +535,11 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 30;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -609,6 +617,7 @@
         private System.Windows.Forms.PictureBox objectColorTexturePictureBox;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox drawEdgeCheckBox;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

@@ -10,9 +10,9 @@ namespace GK_Projekt2
     public class Triangle
     {
         //A najnizej, C najwyzej
-        Point A { get; set; }
-        Point B { get; set; }
-        Point C { get; set; }
+        public Point A { get; private set; }
+        public Point B { get; private set; }
+        public Point C { get; private set; }
 
         public double Ks { get; private set; }
         public double Kd { get; private set; }
@@ -25,10 +25,9 @@ namespace GK_Projekt2
             A = points[0];
             B = points[1];
             C = points[2];
-            Random r = new Random();
-            Ks = r.NextDouble();
-            Kd = r.NextDouble();
-            m = r.Next(1, 101);
+            Ks = mainForm.Random.NextDouble();
+            Kd = mainForm.Random.NextDouble();
+            m = mainForm.Random.Next(1, 101);
         }
 
         public List<ActiveEdge> ActiveEdges
