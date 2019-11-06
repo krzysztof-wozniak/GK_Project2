@@ -13,7 +13,9 @@ namespace GK_Projekt2
 {
     public partial class mainForm : Form
     {
-        private Triangles triangles = new Triangles();
+        private static int N = 8;
+        private static int M = 5;
+        private Triangles triangles = new Triangles(N, M);
         private DirectBitmap image;
         private DirectBitmap oldImage;
         public Vector3D a;
@@ -47,7 +49,12 @@ namespace GK_Projekt2
         private double Radius = 200;
         private double time = 0;
         private double lightSourceHeight = 100;
-        
+
+        public static double[] RandomKd { get; private set; }
+        public static double[] RandomKs { get; private set; }
+        public static double[] RandomM { get; private set; }
+
+
 
         public mainForm()
         {
@@ -59,7 +66,6 @@ namespace GK_Projekt2
             ConstLightSource = true;
             ConstVectorN = true;
             ConstObjectColor = true;
-            //ObjectColorTexture = new Bitmap("koala.jpg")
             lightSourceColorPictureBox.BackColor = Color.FromArgb(255, 255, 255);
             LightColor = lightSourceColorPictureBox.BackColor;
             defaultN = new Vector3D(0, 0, 1);
@@ -68,13 +74,13 @@ namespace GK_Projekt2
             Bitmap temp = new Bitmap(GK_Projekt2.Properties.Resources.newkoala, mainPictureBox.Width, mainPictureBox.Height);
             ObjectColorTexture.SetBitmap(temp);
             temp.Dispose();
-            //var l = GK_Projekt2.Properties.Resources.brick_normalmap;
             temp = new Bitmap(GK_Projekt2.Properties.Resources.normalbrickwall);
             VectorNTexture = new DirectBitmap(temp.Width, temp.Height);
             VectorNTexture.SetBitmap(temp);
             temp.Dispose();
             LightSource = new Point3D(Radius * Math.Cos(time) + mainPictureBox.Width / 2, Radius * Math.Sin(time) + mainPictureBox.Height / 2, lightSourceHeight);
             SetCoefficient = true;
+            InitRandoms();
         }
 
         protected override void OnShown(EventArgs e)
@@ -199,11 +205,9 @@ namespace GK_Projekt2
                 {
                     triangles.M = Int32.Parse(mTextBox.Text);
                 }
-                //Image image = new Bitmap(mainPictureBox.Width, mainPictureBox.Height);
-                //mainPictureBox.Image = image;
                 triangles.InitTriangles(mainPictureBox.Width, mainPictureBox.Height);
+                InitRandoms();
                 UpdatePictureBox();
-                //triangles.DrawTriangles(image);
             }
         }
 
@@ -451,12 +455,25 @@ namespace GK_Projekt2
         private void timer1_Tick(object sender, EventArgs e)
         {
             time += 0.1;
-            if (time > Math.PI * 2)
-                time = 0;
-            LightSource = new Point3D(Radius * Math.Cos(time) + mainPictureBox.Width / 2, Radius * Math.Sin(2 * time) + mainPictureBox.Height / 2, lightSourceHeight * (Math.Sin(time) + 2.5));
+            //if (time > Math.PI * 2)
+            //    time = 0;
+            LightSource = new Point3D(Radius * Math.Cos(time) + mainPictureBox.Width / 2, Radius * Math.Sin(2* time) + mainPictureBox.Height / 2, lightSourceHeight * (Math.Sin(time) + 2.5));
             
             UpdatePictureBox();
             
+        }
+
+        private void InitRandoms()
+        {
+            RandomKd = new double[2 * N * M];
+            RandomKs = new double[2 * N * M];
+            RandomM = new double[2 * N * M];
+            for(int i = 0; i < RandomKd.Length; i++)
+            {
+                RandomKd[i] = Random.NextDouble();
+                RandomKs[i] = Random.NextDouble();
+                RandomM[i] = Random.Next(1, 101);
+            }
         }
     }
 }

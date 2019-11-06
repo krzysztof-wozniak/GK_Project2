@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GK_Projekt2
 {
-    public class Triangle
+    public class Triangle : Polygon
     {
         //A najnizej, C najwyzej
         public Point A { get; private set; }
@@ -30,7 +30,7 @@ namespace GK_Projekt2
             m = mainForm.Random.Next(1, 101);
         }
 
-        public List<ActiveEdge> ActiveEdges
+        public override List<ActiveEdge> ActiveEdges
         {
             get
             {

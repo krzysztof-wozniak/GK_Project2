@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace GK_Projekt2
 {
-    public class Triangles
+    public class Triangles : Polygons
     {
         public int N { get; set; } //width
         public int M { get; set; } //height
@@ -19,7 +19,7 @@ namespace GK_Projekt2
         private Pen pen = new Pen(Brushes.Black);
         public List<ActiveEdge> ActiveEdges { get; set; }
 
-        public Triangle[] GetTriangles
+        public override Polygon[] GetPolygons
         {
             get
             {

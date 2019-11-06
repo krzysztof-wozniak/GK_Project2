@@ -110,7 +110,6 @@
             this.mainPictureBox.Location = new System.Drawing.Point(3, 3);
             this.mainPictureBox.Name = "mainPictureBox";
             this.mainPictureBox.Size = new System.Drawing.Size(858, 705);
-            this.mainPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.mainPictureBox.TabIndex = 0;
             this.mainPictureBox.TabStop = false;
             this.mainPictureBox.Layout += new System.Windows.Forms.LayoutEventHandler(this.mainPictureBox_Layout);
@@ -546,6 +545,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1034, 711);
             this.Controls.Add(this.mainTableLayoutPanel);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(1050, 750);
+            this.MinimumSize = new System.Drawing.Size(1050, 750);
             this.Name = "mainForm";
             this.Text = "Krzysztof Wozniak - GK Projekt 2";
             this.mainTableLayoutPanel.ResumeLayout(false);

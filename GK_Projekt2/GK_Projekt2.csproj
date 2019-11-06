@@ -57,6 +57,8 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="PointExtention.cs" />
+    <Compile Include="Polygon.cs" />
+    <Compile Include="Polygons.cs" />
     <Compile Include="Triangle.cs" />
     <Compile Include="Triangles.cs" />
     <Compile Include="Program.cs" />
